@@ -1,2 +1,2 @@
 # Python-Graphs
-Some graphs in Python
+Graph implementation in Python
