@@ -6,4 +6,4 @@ Sorting algorithms such as Heapsort, Quicksort(in-place as well as one-liner imp
 Pre-order, in-order, post-order, and Level Order Binary Tree Traversals. 
 
 ## Graph
-Just a graph implementation in Python
+Just a graph implementation in Python. With weights, direction, and path finding.
