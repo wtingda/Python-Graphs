@@ -98,7 +98,8 @@ class SinglyLinkedList():
     
     def addback(self, item): # aka append
         newtail = SLLNode(item, next = None)
-        self.tail.set_next(newtail)
+        if self.tail:
+            self.tail.set_next(newtail)
         self.tail = newtail
         self.head = self.head if self.head else self.tail
         self.size += 1
