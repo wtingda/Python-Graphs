@@ -8,7 +8,7 @@ Sorting algorithms such as Heapsort, Quicksort(in-place as well as one-liner imp
 Various useful data structures reimplemented in python.
 
 ## Binary Tree Traversals
-Pre-order, in-order, post-order, and Level Order Binary Tree Traversals. 
+Pre-order, in-order, post-order, and level-order Binary Tree Traversals. 
 
 ## Graph
 Just a graph implementation in Python to make Djikstra happy. With weights, direction, and shortest-path finding. 
