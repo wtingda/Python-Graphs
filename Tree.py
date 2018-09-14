@@ -1,73 +1,134 @@
-# some binary tree traversals and tree printing 
-# (c) 2017 @author Tingda Wang
+# mainly some binary tree traversals
+# (c) 2017 Tingda Wang
 
-class Node:
-    def __init__(self,val):
-        self.left = None
-        self.right = None
-        self.val = val
+from LinkedList import Node
 
-    # pretty printing of tree structure side ways
-    def __str__(self, depth = 0):
-        tree = ""
+class TreeNode(Node):
+    ''' basic tree node'''
+
+    def __init__(self, value, left = None, right = None):
+        super().__init__(value)
+        self.left = left
+        self.right = right
+
+    def get_left(self):
+        return self.left
+    
+    def get_right(self):
+        return self.right
+
+    def has_left(self):
+        return self.left is not None
+
+    def has_right(self):
+        return self.right is not None
+
+    def set_left(self, left):
+        self.left = left
+        
+    def set_right(self, right):
+        self.right = right
+        
+    def is_leaf(self):
+        return not (self.has_left() or self.has_right())    
+
+     # override
+    def __repr__(self):
+        return "TreeNode(value: %s, left: %s, right: %s)" %(self.item, self.left, self.right)
+
+
+class Tree():
+
+    def __init__(self, value = None):
+        self.root = TreeNode(value)
+        self.size = 1 if value else 0
+
+
+    def get_root(self):
+        return self.root
+
+    def __str__(self, depth = 0, node = -1):
+        ''' pretty prints tree sideways'''
+        node = self.root if node == -1 else node
+    
+        tree = []
+        
         # print right
-        if self.right:
-            tree += self.right.__str__(depth + 1)
+        if node.has_right():
+            tree.append(self.__str__(depth + 1, node.get_right()))
+
+        tree.append('\n')
+        
         # print self
-        tree += "\n" + ("    "*depth) + str(self.val)
+        tree.append(("    "*depth) + str(node.get_item()))
+
+        tree.append('\n')
+        
         # print left
-        if self.left:
-            tree += self.left.__str__(depth + 1)
-        return tree
+        if node.has_left():
+            tree.append(self.__str__(depth + 1, node.get_left()))
 
-def in_order(root):
-    if root:
-        in_order(root.left)
-        print(root.val)
-        in_order(root.right)
+        return ''.join(tree)
 
-def pre_order(root):
-    if root:
-        print(root.val)
-        pre_order(root.left)
-        pre_order(root.right)
+    
+    # recursive tree traversals
+    
+    def in_order(self, node = -1):
+        node = self.root if node == -1 else node
+        
+        if node:
+            self.in_order(node.get_left())
+            print(node.get_item())
+            self.in_order(node.get_right())
 
-def post_order(root):
-    if root:
-        post_order(root.left)
-        post_order(root.right)
-        print(root.val)
+    def pre_order(self, node = -1):
+        node = self.root if node == -1 else node
 
-def level_order(root):
-    current_level = [root]
-    while current_level:
-        # a less beautiful way to print tree structure, but gets clearer idea
-        print(' '.join(str(node.val) for node in current_level))
-        next_level = []
-        for i in current_level:
-            if i.left:
-                next_level.append(i.left)
-            if i.right:
-                next_level.append(i.right)
+        if node:
+            print(node.get_item())
+            self.pre_order(node.get_left())
+            self.pre_order(node.get_right())
+
+    def post_order(self, node = -1):
+        node = self.root if node == -1 else node
+        
+        if node:
+            self.post_order(node.get_left())
+            self.post_order(node.get_right())
+            print(node.get_item())
+
+    def level_order(self, node = -1):
+        ''' not really recursive... '''
+        node = self.root if node == -1 else node
+        current_level = [node]
+        while current_level:
+            # a less beautiful way to print tree structure, but gets clearer idea
+            print(' '.join(str(n.get_item()) for n in current_level))
+            next_level = []
+            for i in current_level:
+                if i.has_left():
+                    next_level.append(i.get_left())
+                if i.has_right():
+                    next_level.append(i.get_right())
             current_level = next_level
 
 if __name__ == "__main__":
-    
-    root = Node("d")
-    root.left = Node("b")
-    root.right = Node("f")
-    root.left.left = Node("a")
-    root.left.right = Node("c")
-    root.right.left = Node("e")
-    root.right.right = Node("g")
+    tree = Tree('d')
+    root = tree.get_root()
+    root.set_left(TreeNode("b"))
+    root.set_right(TreeNode("f"))
+    root.get_left().set_left(TreeNode("a"))
+    root.get_left().set_right(TreeNode("c"))
+    root.get_right().set_left(TreeNode("e"))
+    root.get_right().set_right(TreeNode("g"))
 
     print("tree looks like: ")
-    print(root)
+    print(tree)
     print("\npre-order traversal of the tree: ")
-    pre_order(root)
+    tree.pre_order()
     print("\nin-order traversal of the tree: ")
-    in_order(root)
+    tree.in_order()
     print("\npost-order traversal of the tree: ")
-    post_order(root)
+    tree.post_order()
     print("\nlevel-order traversal of the tree: ")
-    level_order(root)
+    tree.level_order()
