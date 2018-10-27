@@ -12,3 +12,6 @@ Binary Search, insert, deletion, nonrecursive in-order traversal, BST checking. 
 
 ## Graph
 Just a graph implementation in Python to make Djikstra happy. With weights, direction, and shortest-path finding. 
+
+## Trie
+Added basic Trie class
