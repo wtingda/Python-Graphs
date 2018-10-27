@@ -1,17 +1,19 @@
 # Trie Class for storing and searching for words
+# (c) 2017 Tingda Wang
+
+from collections import defaultdict
 
 class TrieNode(object):
     ''' Trie node class that stores children and whether this is a word '''
     def __init__(self):
         self.is_word = False
-        self.children = collections.defaultdict(TrieNode)
+        self.children = defaultdict(TrieNode)
         
 class Trie:
 
     def __init__(self):
         # root is dummy node
         self.root = TrieNode()
-
 
     def insert(self, word):
         """
